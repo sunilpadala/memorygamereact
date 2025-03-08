@@ -1,25 +1,15 @@
 {
   "files": {
     "main.css": "/memorygamereact/static/css/main.a9fb2b25.css",
-    "main.js": "/memorygamereact/static/js/main.7b5b953a.js",
+    "main.js": "/memorygamereact/static/js/main.018434ca.js",
     "static/js/453.58d809e6.chunk.js": "/memorygamereact/static/js/453.58d809e6.chunk.js",
-    "static/media/salad-2756467_1280.jpg": "/memorygamereact/static/media/salad-2756467_1280.4435653e5eaeb65d69a3.jpg",
-    "static/media/fruit-8773085_1280.jpg": "/memorygamereact/static/media/fruit-8773085_1280.660dc4213e8261830b98.jpg",
-    "static/media/vegetable-market-337971_1280.jpg": "/memorygamereact/static/media/vegetable-market-337971_1280.603dc5e1b06864ca464f.jpg",
-    "static/media/pumpkin-1637320_1280.jpg": "/memorygamereact/static/media/pumpkin-1637320_1280.db51b529b7f289a027a5.jpg",
-    "static/media/raspberries-7313700_1280.jpg": "/memorygamereact/static/media/raspberries-7313700_1280.19de434e13db5799c0ed.jpg",
-    "static/media/grapes-5889697_1280.jpg": "/memorygamereact/static/media/grapes-5889697_1280.403a63db23f5f99afea9.jpg",
-    "static/media/onions-1397037_1280.jpg": "/memorygamereact/static/media/onions-1397037_1280.8645e42854eda900fb10.jpg",
-    "static/media/healthy-5146826_1280.jpg": "/memorygamereact/static/media/healthy-5146826_1280.14aacb821701feaa2213.jpg",
-    "static/media/euonymus-europaeus-8353310_1280.jpg": "/memorygamereact/static/media/euonymus-europaeus-8353310_1280.fbf6da4d24cf54f72c88.jpg",
-    "static/media/tomato-5011851_1280.jpg": "/memorygamereact/static/media/tomato-5011851_1280.9fe4322dd8352d8e0a4d.jpg",
     "index.html": "/memorygamereact/index.html",
     "main.a9fb2b25.css.map": "/memorygamereact/static/css/main.a9fb2b25.css.map",
-    "main.7b5b953a.js.map": "/memorygamereact/static/js/main.7b5b953a.js.map",
+    "main.018434ca.js.map": "/memorygamereact/static/js/main.018434ca.js.map",
     "453.58d809e6.chunk.js.map": "/memorygamereact/static/js/453.58d809e6.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.a9fb2b25.css",
-    "static/js/main.7b5b953a.js"
+    "static/js/main.018434ca.js"
   ]
 }

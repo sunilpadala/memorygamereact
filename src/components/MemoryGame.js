@@ -14,68 +14,62 @@ const MemoryGame = () => {
   const [defaultImages, setDefaultImages] = useState([]);
   const timerRef = useRef(null);
 
-  // Load default images from public/images directory
-  useEffect(() => {
-    const loadDefaultImages = () => {
-      try {
-        // Get all image files from the public/images directory
-        const imageContext = require.context('../../public/images', false, /\.(png|jpe?g|svg)$/);
-        const imageList = imageContext.keys().map(key => {
-          // Remove the './' prefix and get the filename
-          const fileName = key.replace('./', '');
-          return `/images/${fileName}`;
-        });
-        
-        // Sort the images to ensure consistent order
-        imageList.sort();
-        
-        // If we have images, use them, otherwise use fallback
-        if (imageList.length > 0) {
-          setDefaultImages(imageList);
-        } else {
-          console.warn('No images found in public/images directory');
-          setDefaultImages([
-            '/images/placeholder1.jpg',
-            '/images/placeholder2.jpg',
-            '/images/placeholder3.jpg',
-            '/images/placeholder4.jpg',
-            '/images/placeholder5.jpg',
-            '/images/placeholder6.jpg',
-            '/images/placeholder7.jpg',
-            '/images/placeholder8.jpg',
-          ]);
-        }
-      } catch (error) {
-        console.error('Error loading default images:', error);
-        // Fallback to placeholder images if loading fails
-        setDefaultImages([
-          '/images/placeholder1.jpg',
-          '/images/placeholder2.jpg',
-          '/images/placeholder3.jpg',
-          '/images/placeholder4.jpg',
-          '/images/placeholder5.jpg',
-          '/images/placeholder6.jpg',
-          '/images/placeholder7.jpg',
-          '/images/placeholder8.jpg',
-        ]);
-      }
-    };
+  // Helper function to get correct image path
+  const getImagePath = (imageName) => {
+    // Check if we're on GitHub Pages
+    const isGitHubPages = window.location.hostname.includes('github.io');
+    // If on GitHub Pages, use the repo name, otherwise use PUBLIC_URL
+    const basePath = isGitHubPages ? '/memorygamereact' : process.env.PUBLIC_URL;
+    const fullPath = `${basePath}/images/${imageName}`;
+    console.log('Image path details:', {
+      isGitHubPages,
+      basePath,
+      imageName,
+      fullPath,
+      hostname: window.location.hostname,
+      publicUrl: process.env.PUBLIC_URL
+    });
+    return fullPath;
+  };
 
-    loadDefaultImages();
+  // List of image filenames
+  const imageNames = [
+    'euonymus-europaeus-8353310_1280.jpg',
+    'fruit-8773085_1280.jpg',
+    'grapes-5889697_1280.jpg',
+    'healthy-5146826_1280.jpg',
+    'onions-1397037_1280.jpg',
+    'pumpkin-1637320_1280.jpg',
+    'raspberries-7313700_1280.jpg',
+    'salad-2756467_1280.jpg',
+    'tomato-5011851_1280.jpg',
+    'vegetable-market-337971_1280.jpg'
+  ];
+
+  // Set default images on component mount
+  useEffect(() => {
+    const paths = imageNames.map(name => getImagePath(name));
+    console.log('Setting default images:', paths);
+    setDefaultImages(paths);
   }, []);
 
   // Initialize game
   const initializeGame = (images) => {
+    console.log('Initializing game with images:', images);
     // Create pairs of cards
-    const cardPairs = [...images, ...images].map((image, index) => ({
-      id: index,
-      image,
-      isFlipped: false,
-      isMatched: false
-    }));
+    const cardPairs = [...images, ...images].map((image, index) => {
+      console.log(`Creating card ${index} with image:`, image);
+      return {
+        id: index,
+        image,
+        isFlipped: false,
+        isMatched: false
+      };
+    });
     
     // Shuffle cards
     const shuffledCards = shuffleArray(cardPairs);
+    console.log('Shuffled cards:', shuffledCards);
     setCards(shuffledCards);
     setFlipped([]);
     setMatched([]);
@@ -151,6 +145,7 @@ const MemoryGame = () => {
 
   // Start game with default images
   const startWithDefaultImages = () => {
+    console.log('Starting game with default images:', defaultImages);
     initializeGame(defaultImages);
   };
 
@@ -255,24 +250,33 @@ const MemoryGame = () => {
           <div className="game-layout">
             <div className="game-board">
               <div className="card-grid">
-                {cards.map(card => (
-                  <div 
-                    key={card.id} 
-                    className={`card ${flipped.includes(card.id) ? 'card-flipped' : ''} ${matched.includes(card.id) ? 'card-matched' : ''}`}
-                    onClick={() => handleCardClick(card.id)}
-                  >
-                    <div className="card-inner">
-                      <div className="card-front"></div>
-                      <div className="card-back">
-                        <img 
-                          src={card.image} 
-                          alt="Card"
-                          className="card-image"
-                        />
+                {cards.map(card => {
+                  console.log('Rendering card:', card);
+                  return (
+                    <div 
+                      key={card.id} 
+                      className={`card ${flipped.includes(card.id) ? 'card-flipped' : ''} ${matched.includes(card.id) ? 'card-matched' : ''}`}
+                      onClick={() => handleCardClick(card.id)}
+                    >
+                      <div className="card-inner">
+                        <div className="card-front"></div>
+                        <div className="card-back">
+                          <img 
+                            src={card.image} 
+                            alt="Card"
+                            className="card-image"
+                            onError={(e) => {
+                              console.error(`Error loading image: ${card.image}`);
+                              console.error('Full URL:', window.location.origin + card.image);
+                              console.error('Error details:', e);
+                            }}
+                            onLoad={() => console.log(`Successfully loaded image: ${card.image}`)}
+                          />
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
             
